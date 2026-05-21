@@ -31,11 +31,16 @@ public class ProdutoEmpresaController {
         return ResponseEntity.ok(service.cadastrarProduto(dto));
     }
 
-    @GetMapping
-    public ResponseEntity<List<Produto>> listar() {
-        return ResponseEntity.ok(
-                service.listarProdutos()
-        );
+    @GetMapping("/{id}")
+    public ResponseEntity<ProdutoEmpresaDetalhesDTO> visualizarProduto(@PathVariable Long id) {
+        return ResponseEntity.ok(service.visualizarProdutoDaEmpresa(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdutoEmpresaDetalhesDTO> editarProduto(
+            @PathVariable Long id, 
+            @Valid @RequestBody ProdutoRequestDTO dto) {
+        return ResponseEntity.ok(service.editarProduto(id, dto));
     }
 
     @DeleteMapping("/{id}")

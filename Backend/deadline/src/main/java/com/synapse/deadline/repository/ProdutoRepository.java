@@ -3,6 +3,8 @@ package com.synapse.deadline.repository;
 import java.util.List;
 import java.util.Optional;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -56,13 +58,10 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
      * @return Lista contendo os produtos da referida categoria.
      */
     List<Produto> findByCategoriaIdAndAtivoTrue(Long categoriaId);
-/**
-     * Busca um produto específico garantindo que ele pertence a uma empresa específica.
-     * Utilizado para validações de segurança (prevenir IDOR).
-     *
-     * @param idProduto O ID do produto que se deseja buscar.
-     * @param idEmpresa O ID da empresa que deve ser a dona do produto.
-     * @return Um Optional contendo o produto encontrado, ou vazio se não existir/não pertencer à empresa.
+
+    /**
+     * Localiza um produto específico garantindo que ele pertence a uma determinada empresa.
+     * Usado para garantir a segurança (Tenant Isolation) nas edições e exclusões.
      */
     Optional<Produto> findByIdAndEmpresaId(Long idProduto, Long idEmpresa);
 }
